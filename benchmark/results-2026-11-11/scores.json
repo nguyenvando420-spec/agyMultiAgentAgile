@@ -1,0 +1,9 @@
+{
+  "A_max": 11, "D_max": 14, "E_max": 11,
+  "M1": {"A": 11,  "D": 14,   "E": 11,   "notes": "A: rất đầy đủ, thêm kiểm tra status, ledger, IDOR. D: 12 câu hỏi đủ ý, AC rất kỹ (giữ slot TTL, idempotent thông báo). E: đủ 10 mục, dẫn chứng Verified Fan/SafeTix."},
+  "M2": {"A": 10,  "D": 11,   "E": 7,    "notes": "A: thiếu đối chiếu amount/txn từ webhook. D: thiếu pháp lý dữ liệu y tế, nền tảng/admin, xác nhận tự động hay duyệt. E: thiếu hot partition, load test, đối soát; thanh toán không nhắc idempotency."},
+  "M3": {"A": 11,  "D": 12.5, "E": 10,   "notes": "A: đầy đủ. D: thiếu pháp lý dữ liệu y tế; US2 hủy/đổi lịch tốt. E: tốt, thiếu load test và giám sát."},
+  "M4": {"A": 6.5, "D": 9.5,  "E": 4.5,  "notes": "A: thiếu idempotency, PCI, phân trang, đối chiếu amount; đề xuất 'bọc BEGIN/COMMIT' KHÔNG chống được lost update ở READ COMMITTED (sửa sai); timeout → 'tăng timeout/retry' (nguy hiểm nếu không idempotent). D: liệt kê chung chung, AC sơ sài, trộn tiếng Anh. E: câu trả lời kiến trúc chung chung, không có phòng chờ ảo, giữ chỗ TTL, chống bot; không dẫn chứng hệ thống thực tế."},
+  "M5": {"A": 11,  "D": 14,   "E": 9.5,  "notes": "A: đầy đủ + phát hiện sâu nhất: payload webhook không có user_id nên phải ánh xạ txn_id→user_id. D: đủ ý, AC xử lý cả lỗi cổng SMS. E: sâu (sharded counters, outbox, cell-based), thiếu load test/pre-scale. LƯU Ý: đã vô tình xem trước 8 dòng đầu Task A của Carbon khi đang chạy → chấm A cho model này không hoàn toàn mù."},
+  "M6": {"A": 11,  "D": 14,   "E": 10.5, "notes": "A: đầy đủ + ledger, ràng buộc FK, monitoring. D: đủ ý, AC có idempotency khi bấm gửi lại. E: dẫn chứng thực tế chính xác nhất (Eras Tour 2022 ~3,5 tỷ request, Alibaba 11.11, 12306)."}
+}

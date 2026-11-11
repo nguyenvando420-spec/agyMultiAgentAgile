@@ -1,0 +1,25 @@
+{
+  "name": "agile-scrum-team",
+  "displayName": "Enterprise Agile Scrum Multi-Agent Team (Production-Ready)",
+  "version": "2.1.0",
+  "description": "Hệ thống 8 Subagents chuẩn Enterprise Agile/Scrum từ Nghiên cứu hệ thống thực tế & Production-Readiness -> Phân tích Product Backlog -> Quyết định Tech Stack & Chuẩn hóa Code Format toàn team -> Thiết kế Kiến trúc/DB/API -> Lập trình Sprint song song -> QA/AppSec -> DevOps/SRE, tích hợp Phản biện Độc lập (Devil's Advocate) và 3 Cổng Duyệt Human-in-the-loop.",
+  "suggestedPrompts": [
+    "Khởi chạy quy trình Agile chuẩn Production cho ý tưởng mới: [Mô tả ý tưởng]",
+    "Cho Researcher khảo sát các hệ thống thực tế đã triển khai và các hạng mục cần thiết để lên Production cho bài toán này",
+    "Gọi Tech Lead quyết định công nghệ và thiết lập chuẩn Code Format + Linter đồng nhất cho toàn team"
+  ],
+  "keywords": [
+    "agile",
+    "scrum",
+    "multi-agent",
+    "subagent",
+    "research",
+    "tech-lead",
+    "coding-standards",
+    "critic",
+    "production-readiness",
+    "architecture",
+    "qa",
+    "devops"
+  ]
+}

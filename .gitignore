@@ -1,0 +1,11 @@
+.DS_Store
+__pycache__/
+*.pyc
+
+# Benchmark: môi trường và kết quả chạy tạm
+benchmark/.venv/
+benchmark/runs/
+benchmark/blind/
+
+# Theme Terminal cá nhân (không thuộc framework)
+scripts/Tokyo-Night.terminal
