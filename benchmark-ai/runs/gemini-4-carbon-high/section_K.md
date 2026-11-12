@@ -1,0 +1,22 @@
+```json
+{
+  "p95_ms": 900,
+  "accuracy": 0.85,
+  "macro_f1": 0.527,
+  "raw_schema_validity": 0.94
+}
+```
+
+- [Nghiêm trọng] Sinh 3 bản diễn đạt lại cho mỗi tin gốc rồi mới chia ngẫu nhiên từng dòng 80/10/10 → các biến thể cùng một tin gốc nằm ở cả train, val và test gây rò rỉ dữ liệu (data leakage), làm điểm đánh giá cao giả tạo → Chia tập theo nhóm `source_id` của 5.000 tin gốc trước, sau đó chỉ sinh dữ liệu tổng hợp trên tập train.
+- [Cao] Tập test/Golden Test chứa tới ~75% mẫu do Qwen2.5-72B sinh ra và chỉ khử trùng lặp chính xác (exact match) → không loại được các tin gần trùng ngữ nghĩa (near-duplicates) và chấm điểm trên phân phối nhân tạo thay vì ngôn ngữ khách hàng thật → Áp dụng near-deduplication (MinHash/embedding) và xây dựng tập val/Golden Test 100% từ tin nhắn CSKH thực tế được gán nhãn chuẩn bởi người.
+- [Nghiêm trọng] Golden Test chỉ lấy ngẫu nhiên 50 mẫu không phân tầng cho bài toán 12 lớp mất cân bằng nặng → sai số thống kê rất lớn và nhiều lớp thiểu số có 0 mẫu trong tập chấm → Tăng quy mô Golden Test (ví dụ ≥ 1.000 mẫu) và lấy mẫu phân tầng (stratified) đảm bảo đủ số lượng mẫu tối thiểu cho mỗi lớp.
+- [Nghiêm trọng] Chỉ dùng Accuracy (96%) khi lớp đa số chiếm tới 87% lưu lượng thực tế → che khuất hoàn toàn khả năng model đoán sai hoặc bỏ sót 11 lớp thiểu số quan trọng (khiếu nại, hủy đơn, sự cố) → Bắt buộc đo Macro-F1, Precision/Recall/F1 từng lớp và ma trận nhầm lẫn (Confusion Matrix).
+- [Nghiêm trọng] Chọn checkpoint tốt nhất dựa trực tiếp trên điểm Golden Test → rò rỉ tập kiểm định vào bước chọn mô hình (selection bias/overfitting lên 50 mẫu test), làm mất tính khách quan của cổng nghiệm thu → Chỉ dùng tập `val` cho early stopping và chọn checkpoint, giữ Golden Test độc lập chỉ chấm một lần trước phát hành.
+- [Nghiêm trọng] Chấm điểm trên bản FP16 nhưng triển khai thực tế bản lượng tử hóa `GGUF Q4_K_M` → không phát hiện được suy giảm độ chính xác, lệch chat template/tokenizer hoặc tăng lỗi JSON do nén 4-bit và khác engine suy luận → Chạy toàn bộ bài kiểm định chất lượng, schema và an toàn trực tiếp trên file `GGUF Q4_K_M` chạy qua `llama.cpp`.
+- [Cao] Dùng cùng Qwen2.5-72B vừa làm teacher sinh dữ liệu vừa làm giám khảo chấm phần giải thích → thiên kiến tự ưa thích văn phong của chính mình (self-preference/circular bias) và không phát hiện được ảo giác sai nghiệp vụ → Dùng giám khảo độc lập khác họ model kèm rubric chặt chẽ và hiệu chuẩn độ đồng thuận (Cohen's Kappa) với tập chấm tay của chuyên gia.
+- [Cao] Báo cáo tỷ lệ JSON hợp lệ 100% sau bước tự sửa JSON mà ẩn tỷ lệ hợp lệ thô → che giấu lỗi cú pháp thực của model, tăng độ trễ xử lý và có nguy cơ bộ sửa cơ học làm biến dạng giá trị trường/nhãn → Đo riêng `raw_schema_validity` trước khi sửa, kiểm tra chặt JSON Schema cùng danh mục 12 nhãn hợp lệ và bật grammar constraint trong `llama.cpp`.
+- [Nghiêm trọng] Đo hiệu năng trên Kaggle T4 ở ngữ cảnh 256 token với 1 request đơn lẻ trong khi Production dùng RTX 2060 6 GB, ngữ cảnh 2048 token và 5 người dùng đồng thời → sai lệch hoàn toàn về năng lực phần cứng, chi phí prefill ngữ cảnh dài và độ trễ xếp hàng khi chạy song song → Benchmark trực tiếp trên RTX 2060 6 GB với `llama.cpp` ở tải thực 5 kết nối đồng thời và ngữ cảnh lên tới 2048 token.
+- [Cao] Đo latency trên đúng 1 request và gọi là "trung bình 180 ms" → cỡ mẫu N=1 vô nghĩa thống kê và giá trị trung bình che giấu độ trễ đuôi (tail latency) gây nghẽn trải nghiệm khách hàng → Chạy bước warm-up rồi đo trên hàng trăm–nghìn request để báo cáo P50, P95, P99, TTFT và throughput.
+- [Nghiêm trọng] Chỉ đo VRAM (1,3 GB) ngay sau khi nạp model ở trạng thái nghỉ → bỏ qua dung lượng KV cache cho 5 phiên đồng thời × 2048 token, compute buffers và VRAM hệ điều hành, dẫn tới nguy cơ tràn bộ nhớ (OOM) khi chịu tải thật trên thẻ 6 GB → Đo Peak VRAM dưới tải đồng thời tối đa (5 slots × 2048 tokens) chạy liên tục.
+- [Cao] Kiểm thử an toàn chỉ với 5 câu prompt injection tiếng Anh cho hệ thống CSKH tiếng Việt → cỡ mẫu quá nhỏ và bỏ lọt tấn công tiếng Việt, không dấu/teencode, trộn ngôn ngữ, rò rỉ PII hoặc ép xuất sai JSON → Xây dựng bộ Red-Teaming tiếng Việt và đa ngữ hàng trăm mẫu bao phủ prompt injection, jailbreak, PII leak và tấn công cấu trúc đầu ra.
+- [Trung bình] Đặt `temperature = 0.7` và chỉ chạy đánh giá 1 lần cho tác vụ phân loại có cấu trúc → đầu ra ngẫu nhiên thiếu ổn định giữa các lần gọi, tăng nguy cơ lỗi JSON và kết quả trên 50 mẫu dao động may rủi → Chuyển sang giải mã tất định (`temperature = 0`) cho tác vụ phân loại xuất JSON và kiểm chứng tính tái lập.

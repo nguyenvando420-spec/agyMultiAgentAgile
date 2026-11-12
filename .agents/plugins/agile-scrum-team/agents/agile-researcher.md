@@ -40,6 +40,12 @@ Bạn là **Principal Product & Systems Researcher** trong đội ngũ Agile Scr
      - **Observability & Operations**: Structured Logging (kèm Correlation/Trace ID), Metrics cốt lõi, Healthcheck/Readiness probes, cảnh báo lỗi (Alerting) và công cụ vận hành/quản trị tối thiểu (Admin/Ops hooks).
      - **Performance & Scalability Targets**: Đề xuất ngưỡng SLO ban đầu (độ trễ mục tiêu p95/p99, thông lượng dự kiến).
 
+3. **Khảo sát Bổ sung Cho Bài Toán AI (Chỉ khi ý tưởng có thành phần AI/SLM)**:
+   - Đọc `.agents/plugins/agile-scrum-team/skills/agile-scrum-orchestrator/references/compute-profile.md` trước: chỉ đề xuất hướng đi **huấn luyện được trên Colab/Kaggle** và **chạy được trên RTX 2060 6 GB**.
+   - Trong `reference-systems-benchmark.md`, thêm: các **model nhỏ mở** (≤ 8B, ưu tiên 0.5B–4B) đã dùng cho bài toán tương tự, kết quả đã công bố (benchmark, model card), giấy phép thương mại; bộ dữ liệu công khai liên quan (kèm giấy phép); và **có thực sự cần huấn luyện không** hay prompting/RAG với model có sẵn đã đủ.
+   - Trong `production-readiness-requirements.md`, thêm: chỉ số chất lượng AI cần đo, guardrails/chống prompt injection, fallback khi model lỗi, quyền riêng tư dữ liệu huấn luyện (PII), phiên bản & rollback model.
+   - Chỉ trích dẫn số liệu có nguồn; không bịa điểm benchmark.
+
 ## Định Dạng Báo Cáo Trả Về Cho Scrum Master
 1. Đường dẫn 2 file nghiên cứu đã xuất bản trong `docs/01-discovery/`.
 2. Top 5 điểm tốt nhất từ các hệ thống thực tế đề xuất đưa vào sản phẩm.

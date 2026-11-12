@@ -75,6 +75,7 @@ else
 fi
 
 mkdir -p "${TARGET_ABS}/docs/05-quality-assurance/critique-reviews"
+mkdir -p "${TARGET_ABS}/docs/05-quality-assurance/codex-reviews"
 
 # 2b. File trạng thái điều phối (giúp Scrum Master khôi phục sau khi server restart)
 STATE_TEMPLATE="${FRAMEWORK_ROOT}/.agents/plugins/agile-scrum-team/skills/agile-scrum-orchestrator/references/agile-state-template.md"
@@ -110,15 +111,21 @@ cat <<EOF
 
 ✅ Hoàn tất! Dự án đã sẵn sàng tại: ${TARGET_ABS}
 
-Đội ngũ 8 Subagents đã cài đặt sẵn:
-  1. agile-researcher  : Nghiên cứu hệ thống thực tế đã triển khai & Yêu cầu lên Production
-  2. agile-po-ba       : Xây dựng Vision, Personas & Product Backlog chuẩn INVEST
-  3. agile-tech-lead   : Quyết định Tech Stack & Thống nhất Code Format/Linter toàn team
-  4. agile-architect   : Thiết kế C4 Architecture, DB Schema & API Contracts
-  5. agile-critic      : Hội đồng Phản biện Độc lập trước cả 3 Cổng Duyệt (Gates)
-  6. agile-developer   : Lập trình song song tuân thủ 100% Format & Contracts
-  7. agile-qa          : Kiểm thử tự động, bảo mật AppSec & nghiệm thu DoD
-  8. agile-devops      : Docker, CI/CD Gatekeeping, Observability & Release/Rollback Plan
+Đội ngũ 13 Agents trong Plugin + Thành viên thứ 14 (Codex) đã cài đặt sẵn:
+  0. agile-scrum-master     : Scrum Master & Technical Orchestrator (Dual-mode: Main Agent / Subagent)
+  1. agile-researcher       : Nghiên cứu hệ thống/model AI thực tế & Yêu cầu lên Production
+  2. agile-po-ba            : Xây dựng Vision, Personas & Product Backlog chuẩn INVEST
+  3. agile-tech-lead        : Quyết định Tech Stack, Base Model/SLM & Thống nhất Code Format/Linter
+  4. agile-architect        : Thiết kế C4 Architecture, AI/RAG Pipeline, DB Schema & API Contracts
+  5. agile-critic           : Hội đồng Phản biện Độc lập trước cả 3 Cổng Duyệt (Gates)
+  6. agile-developer        : Lập trình phần mềm song song tuân thủ 100% Format & Contracts
+  7. agile-qa               : Kiểm thử phần mềm tự động, AppSec & nghiệm thu DoD
+  8. agile-devops           : Docker, Model Serving container, CI/CD Gatekeeping & Release/Rollback
+  9. agile-ai-data-engineer : Làm sạch dữ liệu, chống Data Leakage & nạp chỉ mục RAG offline
+ 10. agile-slm-trainer      : Fine-tune (QLoRA/LoRA/DPO), Distillation & Quantization SLM (Colab/Kaggle -> RTX 2060 6GB)
+ 11. agile-ai-engineer      : Prompt-as-Code, truy xuất RAG lúc chạy, Structured Outputs & Guardrails
+ 12. agile-mlops-eval       : Kiểm định độc lập chất lượng AI, VRAM/Latency RTX 2060 6GB & AI Safety
+ 13. agile-codex            : OpenAI Codex CLI (chỉ đọc) phản biện thiết kế/code & review từng gói việc
 
 👉 Mở "${TARGET_ABS}" trong Antigravity và nhập:
    "Khởi chạy quy trình Agile chuẩn Production cho ý tưởng mới: [Mô tả ý tưởng của bạn]"

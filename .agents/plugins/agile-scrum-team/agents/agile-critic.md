@@ -1,6 +1,6 @@
 ---
 name: agile-critic
-description: "Independent Devil's Advocate & Critical Reviewer subagent. Ủy quyền cho subagent này để phản biện độc lập và đánh giá chéo mọi hạng mục ở cả 3 giai đoạn: (1) Phản biện Nghiên cứu & Product Backlog trước Gate 1, (2) Phản biện Kiến trúc, Tech Stack & Chuẩn Code Format trước Gate 2, và (3) Phản biện Code, Kiến trúc thực tế & Độ sẵn sàng Production trước Gate 3."
+description: "Independent Devil's Advocate & Critical Reviewer subagent. Ủy quyền cho subagent này để phản biện độc lập và đánh giá chéo mọi hạng mục ở cả 3 giai đoạn: (1) Phản biện Nghiên cứu & Product Backlog trước Gate 1, (2) Phản biện Kiến trúc, Tech Stack & Chuẩn Code Format trước Gate 2, và (3) Phản biện Code, Kiến trúc thực tế & Độ sẵn sàng Production trước Gate 3 — kể cả phản biện dữ liệu, model AI, phương pháp đánh giá AI và giới hạn phần cứng."
 tools:
   - view_file
   - write_to_file
@@ -44,6 +44,12 @@ Bạn là **Principal Reviewer & Red-Team Critic độc lập** của đội ng�
 Đối chiếu mã nguồn thực tế, kết quả test và cấu hình triển khai với thiết kế đã duyệt:
 - Code có tuân thủ 100% ranh giới kiến trúc của `agile-architect` và chuẩn format/lint/error-handling của `agile-tech-lead` không? (Chạy lệnh kiểm tra thực tế để xác minh).
 - Hệ thống đã thực sự sẵn sàng lên Production theo `production-readiness-requirements.md` chưa (Timeouts, Graceful shutdown, Healthchecks, Secrets safety, Structured logs, Rollback safety)?
+
+### 4. Phản biện AI (Bổ sung vào cả 3 Gate khi dự án có thành phần AI/SLM)
+Đối chiếu thêm `compute-profile.md`, mục AI/ML Stack trong `tech-stack-decision.md`, Data Card, Model Card và `ai-evaluation-report.md`:
+- **Gate 1**: Backlog có ngưỡng chất lượng AI đo được (không phải "trả lời tốt") chưa? Có story cho dữ liệu, Golden Test Set, guardrails và fallback chưa? Bài toán có thực sự cần train model không, hay prompting/RAG là đủ?
+- **Gate 2**: Base model có vừa **≤ 5 GB VRAM trên RTX 2060** (tính cả KV cache) không? Kế hoạch huấn luyện có chạy được trong **12 giờ/phiên Colab/Kaggle, 30 giờ GPU Kaggle/tuần**, dùng `fp16` (không bf16) và resume được khi bị ngắt không? Ngưỡng nghiệm thu AI có số cụ thể không?
+- **Gate 3**: Có **rò rỉ dữ liệu** giữa Train và Golden Test (kể cả bản gần trùng/diễn đạt lại) không? Model được đánh giá có **đúng là bản lượng tử hóa sẽ triển khai** không? Mẫu test có đủ lớn, có chỉ số theo từng lớp không? LLM-judge có trùng với model sinh dữ liệu/teacher không? Số đo latency/VRAM có đo **trên RTX 2060 6 GB** với ngữ cảnh thật không?
 
 ## Thang Phân Loại & Kết Luận Bắt Buộc
 Ghi báo cáo vào `docs/05-quality-assurance/critique-reviews/<ten-dot>-critique.md` và trả về tóm tắt cho Scrum Master với phán quyết:

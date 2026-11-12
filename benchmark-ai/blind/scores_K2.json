@@ -1,0 +1,16 @@
+{
+  "graded_at": "2026-11-12T15:35+07:00",
+  "grader": "Scrum Master (Claude Opus 5.5) — chấm mù theo rubric.md đã chốt trước khi chạy model; ghi điểm TRƯỚC khi mở .mapping.json",
+  "K2_max": 12,
+  "K2": {
+    "M1": {"score": 4.0, "items": {"K2.1": 0.5, "K2.2": 0, "K2.3": 0, "K2.4": 1, "K2.5": 0.5, "K2.6": 0, "K2.7": 0, "K2.8": 0.5, "K2.9": 0, "K2.10": 1, "K2.11": 0.5, "K2.12": 0},
+           "notes": "Thấy chia ngẫu nhiên có thể rò rỉ nhưng không chỉ ra nguyên nhân là bản diễn đạt lại; bỏ sót chọn checkpoint trên test, chấm fp16 thay vì GGUF, teacher làm giám khảo, JSON sau khi sửa, sai phần cứng, temperature. Sửa latency bằng median/std thay vì P95."},
+    "M2": {"score": 12.0, "notes": "Đủ 12/12. Khoảng tin cậy Wilson 87–99% cho 48/50 là ĐÚNG (đã tính lại). Thêm ý hợp lệ ngoài thang điểm: thiếu baseline/ngưỡng phát hành định trước, phân tích lỗi/độ bền, ghi version để tái lập."},
+    "M3": {"score": 12.0, "notes": "Đủ 12/12. '~75% mẫu do model sinh' là đúng (15.000/20.000). Thiếu injection gián tiếp nhưng đã nêu quá ít + sai ngôn ngữ + jailbreak (đủ điểm theo quy tắc nhất quán)."},
+    "M4": {"score": 12.0, "notes": "Đủ 12/12. Thiếu injection gián tiếp và kiểm tra gần trùng, nhưng cách sửa chia theo nhóm trước khi tăng cường đã đúng."},
+    "M5": {"score": 12.0, "notes": "Đủ 12/12, có nêu injection gián tiếp và gần trùng. Một lỗi đánh máy (ký tự Hàn lẫn vào), không phải thông tin sai."},
+    "M6": {"score": 12.0, "notes": "Đủ 12/12. '±5–6 điểm %' cho p=0,96, n=50 là đúng. Thêm ý hợp lệ: ẩn PII trước khi đưa vào teacher, kiểm nhãn dữ liệu diễn đạt lại, OOD, tiêu chí phát hành + rollback."}
+  },
+  "hallucination_penalties": "Không có (đã kiểm lại các con số thống kê M2, M3, M6).",
+  "consistency_rule_K2_11": "1 điểm nếu nêu ≥ 2 trong 3 ý: quá ít mẫu, sai ngôn ngữ, thiếu injection gián tiếp/jailbreak; 0.5 nếu chỉ 1 ý."
+}

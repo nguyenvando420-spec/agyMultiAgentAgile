@@ -1,0 +1,21 @@
+
+```json
+{
+  "p95_ms": 900.0,
+  "accuracy": 0.85,
+  "macro_f1": 0.527,
+  "raw_schema_validity": 0.94
+}
+```
+
+- [Nghiêm trọng] Rò rỉ dữ liệu qua phân chia ngẫu nhiên (Data Leakage): 5.000 tin gốc được sinh thành 20.000 mẫu bằng diễn đạt lại rồi chia ngẫu nhiên 80/10/10 → Các biến thể của cùng một câu gốc xuất hiện ở cả train và test, gây overfit và thổi phồng độ chính xác đánh giá → Phân chia tập theo nhóm nguồn (Group Split theo ID câu gốc) trước khi augment hoặc chia 5.000 tin gốc trước rồi mới augment độc lập từng tập.
+- [Nghiêm trọng] Rò rỉ dữ liệu khi chọn checkpoint trên Golden Test (Data Contamination): Chọn checkpoint fp16 tốt nhất dựa trên điểm số của Golden Test → Golden Test bị mất tính khách quan độc lập, model bị overfit vào tập đánh giá → Chỉ dùng tập validation (`val`) để chọn checkpoint và dừng sớm, giữ Golden Test nguyên vẹn cho đánh giá nghiệm thu cuối cùng.
+- [Nghiêm trọng] Sai lệch giữa model đánh giá và model triển khai (Train-Serving Discrepancy): Đánh giá trên checkpoint fp16 nhưng phát hành bản lượng tử hóa GGUF Q4_K_M → Bỏ qua hiện tượng suy hao độ chính xác và lỗi suy luận do lượng tử hóa 4-bit gây ra → Đánh giá trực tiếp trên file GGUF Q4_K_M chạy qua runtime llama.cpp.
+- [Cao] Kích thước Golden Test quá nhỏ và thiếu đại diện: Chỉ lấy ngẫu nhiên 50 mẫu cho 12 lớp phân loại → Nhiều lớp thiểu số chỉ có 0-2 mẫu, kết quả có phương sai rất lớn và không có ý nghĩa thống kê → Mở rộng Golden Test lên tối thiểu 500–1.000 mẫu và dùng lấy mẫu phân tầng (Stratified Sampling) để đảm bảo mọi lớp đều đủ mẫu kiểm định.
+- [Cao] Đánh giá sai lệch trên dữ liệu mất cân bằng nghiêm trọng (Accuracy Paradox): Dùng Accuracy (96%) làm thước đo chính khi lớp đa số chiếm tới 87% → Model chỉ cần đoán toàn bộ về lớp đa số đã đạt 87% accuracy, che giấu việc nhận diện kém ở các lớp thiểu số → Bắt buộc đánh giá bằng Macro-F1, Balanced Accuracy, Precision/Recall từng lớp và Confusion Matrix.
+- [Cao] Sai lệch tự thiên vị từ giám khảo LLM (Self-Enhancement Bias): Dùng Qwen2.5-72B chấm phần giải thích của học sinh vốn học từ dữ liệu do chính Qwen2.5-72B sinh ra → Giám khảo thiên vị phong cách và lỗi của chính nó, bỏ qua các lỗi logic hoặc ảo giác ngầm → Dùng chuyên gia con người thẩm định hoặc dùng model giám khảo độc lập từ họ khác (như GPT-4o, Claude 3.5 Sonnet) với rubric chấm điểm chặt chẽ.
+- [Cao] Môi trường đo kiểm hiệu năng không tương thích thực tế (Benchmark Mismatch): Đo latency trung bình 180 ms trên 1 request, ngữ cảnh 256 token trên Kaggle T4, trong khi thực tế chạy RTX 2060 6 GB, ngữ cảnh 2048 token với 5 user đồng thời → Bỏ qua độ trễ hàng đợi, KV cache phình to và hiện tượng nghẽn tài nguyên trên phần cứng production yếu hơn → Đo kiểm tải thực tế trên RTX 2060 với 5 concurrency ở ngữ cảnh 2048 token, báo cáo P50/P95/P99 latency và throughput.
+- [Cao] Đo dung lượng VRAM sai thời điểm (Incomplete VRAM Profiling): Đo VRAM 1,3 GB ngay sau khi nạp model → Chưa tính bộ nhớ cấp phát cho KV cache (5 user × 2048 token), CUDA context và activation khi suy luận, dễ tràn VRAM (OOM) trên GPU 6 GB → Đo Peak VRAM (bộ nhớ đỉnh) trong điều kiện tải tối đa của hệ thống.
+- [Cao] Báo cáo tỷ lệ JSON hợp lệ gây hiểu nhầm: Báo cáo 100% JSON hợp lệ sau khi đã qua bước tự sửa (self-healing) → Che giấu tỷ lệ sinh JSON sai nguyên bản của model, làm tăng latency và rủi ro sửa sai lệch ngữ nghĩa dữ liệu ở production → Báo cáo cả tỷ lệ hợp lệ thô (Raw Validity) và tỷ lệ sau khi sửa kèm chi phí tài nguyên/thời gian tự sửa.
+- [Trung bình] Đánh giá an toàn hời hợt và lệch ngôn ngữ: Chỉ thử 5 câu prompt injection bằng tiếng Anh cho chatbot CSKH tiếng Việt → Số lượng mẫu quá ít, không bao quát được tấn công bằng tiếng Việt, jailbreak hay rò rỉ dữ liệu PI → Xây dựng bộ test an toàn tiếng Việt chuẩn hóa (tối thiểu 100+ kịch bản) gồm Prompt Injection, Jailbreak và rò rỉ System Prompt/PII.
+- [Trung bình] Tham số giải mã không phù hợp cho tác vụ phân loại: Dùng temperature 0.7 và chỉ chạy 1 lần cho phân loại nhãn → Khiến kết quả đầu ra ngẫu nhiên, không thể tái lập và tăng tỷ lệ lỗi định dạng JSON → Đặt temperature = 0.0 (greedy decoding) cho tác vụ phân loại hoặc chạy lặp lại nhiều lần để đo độ lệch chuẩn.

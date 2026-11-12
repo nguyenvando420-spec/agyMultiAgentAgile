@@ -1,0 +1,146 @@
+﻿{
+    "gemini-4-carbon-high":  {
+                                 "sections_found":  "HIJK",
+                                 "order_ok":  true,
+                                 "H":  [
+                                           17,
+                                           17,
+                                           "fail: "
+                                       ],
+                                 "I":  [
+                                           16,
+                                           16,
+                                           ""
+                                       ],
+                                 "J":  [
+                                           19,
+                                           19,
+                                           "fail: "
+                                       ],
+                                 "K1":  [
+                                            4,
+                                            4,
+                                            ""
+                                        ]
+                             },
+    "claude-opus-5-5-high":  {
+                                 "sections_found":  "HIJK",
+                                 "order_ok":  true,
+                                 "H":  [
+                                           17,
+                                           17,
+                                           "fail: "
+                                       ],
+                                 "I":  [
+                                           16,
+                                           16,
+                                           ""
+                                       ],
+                                 "J":  [
+                                           19,
+                                           19,
+                                           "fail: "
+                                       ],
+                                 "K1":  [
+                                            4,
+                                            4,
+                                            ""
+                                        ]
+                             },
+    "gemini-3.8-flash-high":  {
+                                  "sections_found":  "HIJK",
+                                  "order_ok":  true,
+                                  "H":  [
+                                            17,
+                                            17,
+                                            "fail: "
+                                        ],
+                                  "I":  [
+                                            16,
+                                            16,
+                                            ""
+                                        ],
+                                  "J":  [
+                                            19,
+                                            19,
+                                            "fail: "
+                                        ],
+                                  "K1":  [
+                                             4,
+                                             4,
+                                             ""
+                                         ]
+                              },
+    "gemini-4-argon-high":  {
+                                "sections_found":  "HIJK",
+                                "order_ok":  true,
+                                "H":  [
+                                          17,
+                                          17,
+                                          "fail: "
+                                      ],
+                                "I":  [
+                                          16,
+                                          16,
+                                          ""
+                                      ],
+                                "J":  [
+                                          19,
+                                          19,
+                                          "fail: "
+                                      ],
+                                "K1":  [
+                                           4,
+                                           4,
+                                           ""
+                                       ]
+                            },
+    "gpt-oss-120b-medium":  {
+                                "sections_found":  "HIJK",
+                                "order_ok":  true,
+                                "H":  [
+                                          15,
+                                          17,
+                                          "fail: dedup after PII + pii count kept only; random 300 vs reference"
+                                      ],
+                                "I":  [
+                                          9,
+                                          16,
+                                          "compute_dtype=bfloat16; bf16/fp16; output_dir/resume; save_interval=60; export gguf Q4_0; gguf_size=0.8 for Q4_0; golden early stop"
+                                      ],
+                                "J":  [
+                                          17,
+                                          19,
+                                          "fail: bool not int; int ok for float / bool not float"
+                                      ],
+                                "K1":  [
+                                           4,
+                                           4,
+                                           ""
+                                       ]
+                            },
+    "claude-sonnet-5-5-high":  {
+                                   "sections_found":  "HIJK",
+                                   "order_ok":  true,
+                                   "H":  [
+                                             17,
+                                             17,
+                                             "fail: "
+                                         ],
+                                   "I":  [
+                                             16,
+                                             16,
+                                             ""
+                                         ],
+                                   "J":  [
+                                             19,
+                                             19,
+                                             "fail: "
+                                         ],
+                                   "K1":  [
+                                              4,
+                                              4,
+                                              ""
+                                          ]
+                               }
+}

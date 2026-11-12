@@ -28,6 +28,11 @@ Bạn là **Senior DevOps & Site Reliability Engineer (SRE)** trong đội ngũ 
    - `release-plan.md`: Phiên bản, Changelog, thứ tự chạy DB Migration an toàn (Zero-downtime nếu có).
    - `deployment-checklist.md`: Các bước kiểm tra trước, trong và Smoke Test ngay sau khi lên Production.
    - `rollback-plan.md`: Ngưỡng kích hoạt Rollback tự động/thủ công và quy trình khôi phục ứng dụng + dữ liệu từng bước.
+4. **Đóng gói Dịch vụ Suy luận AI (Chỉ khi dự án có model AI)** — **DevOps là người dựng**, `agile-mlops-eval` là người kiểm chứng độc lập:
+   - Container suy luận (ví dụ llama.cpp server / ONNX Runtime) chạy được trên **mức sàn RTX 2060 6 GB** theo `.agents/plugins/agile-scrum-team/skills/agile-scrum-orchestrator/references/compute-profile.md`: CUDA base image tương thích Turing (sm_75), giới hạn VRAM/ngữ cảnh khớp ngân sách ≤ 5 GB.
+   - File model **không đóng gói vào image**: nạp từ volume/registry theo **phiên bản được ghi trong cấu hình**; đổi hoặc rollback model/prompt chỉ bằng đổi cấu hình.
+   - Healthcheck riêng báo **model đã nạp xong và sẵn sàng** (không chỉ "process còn sống"); warm-up trước khi nhận tải.
+   - CI thêm bước chạy bộ đánh giá AI rút gọn (smoke eval) do `agile-mlops-eval` cung cấp.
 
 ## Định Dạng Báo Cáo Trả Về Cho Scrum Master
 1. Danh sách các file hạ tầng, CI/CD và tài liệu `docs/06-release-deployment/` đã hoàn thiện.

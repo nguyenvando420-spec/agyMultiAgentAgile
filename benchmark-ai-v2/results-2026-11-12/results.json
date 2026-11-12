@@ -1,0 +1,482 @@
+{
+ "claude-opus-5-5-high__r1": {
+  "data (AI Data Engineer)": {
+   "fixed": 5,
+   "bugs": 5,
+   "decoys_broken": 0,
+   "net": 5,
+   "missed": [],
+   "broken": []
+  },
+  "train (SLM Trainer)": {
+   "fixed": 4,
+   "bugs": 4,
+   "decoys_broken": 0,
+   "net": 4,
+   "missed": [],
+   "broken": []
+  },
+  "llm (AI Engineer)": {
+   "fixed": 5,
+   "bugs": 5,
+   "decoys_broken": 0,
+   "net": 5,
+   "missed": [],
+   "broken": []
+  },
+  "eval (MLOps-Eval)": {
+   "fixed": 5,
+   "bugs": 5,
+   "decoys_broken": 0,
+   "net": 5,
+   "missed": [],
+   "broken": []
+  },
+  "TOTAL": {
+   "fixed": 19,
+   "bugs": 19,
+   "decoys_broken": 0,
+   "net": 19
+  },
+  "files_returned": [
+   "mlkit/data_prep.py",
+   "mlkit/eval_metrics.py",
+   "mlkit/llm_call.py",
+   "mlkit/train_plan.py"
+  ],
+  "errors": {},
+  "seconds": 172
+ },
+ "claude-opus-5-5-high__r2": {
+  "data (AI Data Engineer)": {
+   "fixed": 5,
+   "bugs": 5,
+   "decoys_broken": 0,
+   "net": 5,
+   "missed": [],
+   "broken": []
+  },
+  "train (SLM Trainer)": {
+   "fixed": 4,
+   "bugs": 4,
+   "decoys_broken": 0,
+   "net": 4,
+   "missed": [],
+   "broken": []
+  },
+  "llm (AI Engineer)": {
+   "fixed": 5,
+   "bugs": 5,
+   "decoys_broken": 0,
+   "net": 5,
+   "missed": [],
+   "broken": []
+  },
+  "eval (MLOps-Eval)": {
+   "fixed": 5,
+   "bugs": 5,
+   "decoys_broken": 0,
+   "net": 5,
+   "missed": [],
+   "broken": []
+  },
+  "TOTAL": {
+   "fixed": 19,
+   "bugs": 19,
+   "decoys_broken": 0,
+   "net": 19
+  },
+  "files_returned": [
+   "mlkit/data_prep.py",
+   "mlkit/eval_metrics.py",
+   "mlkit/llm_call.py",
+   "mlkit/train_plan.py"
+  ],
+  "errors": {},
+  "seconds": 156
+ },
+ "claude-sonnet-5-5-high__r1": {
+  "data (AI Data Engineer)": {
+   "fixed": 5,
+   "bugs": 5,
+   "decoys_broken": 0,
+   "net": 5,
+   "missed": [],
+   "broken": []
+  },
+  "train (SLM Trainer)": {
+   "fixed": 4,
+   "bugs": 4,
+   "decoys_broken": 0,
+   "net": 4,
+   "missed": [],
+   "broken": []
+  },
+  "llm (AI Engineer)": {
+   "fixed": 5,
+   "bugs": 5,
+   "decoys_broken": 0,
+   "net": 5,
+   "missed": [],
+   "broken": []
+  },
+  "eval (MLOps-Eval)": {
+   "fixed": 5,
+   "bugs": 5,
+   "decoys_broken": 0,
+   "net": 5,
+   "missed": [],
+   "broken": []
+  },
+  "TOTAL": {
+   "fixed": 19,
+   "bugs": 19,
+   "decoys_broken": 0,
+   "net": 19
+  },
+  "files_returned": [
+   "mlkit/data_prep.py",
+   "mlkit/eval_metrics.py",
+   "mlkit/llm_call.py",
+   "mlkit/train_plan.py"
+  ],
+  "errors": {},
+  "seconds": 97
+ },
+ "claude-sonnet-5-5-high__r2": {
+  "data (AI Data Engineer)": {
+   "fixed": 5,
+   "bugs": 5,
+   "decoys_broken": 0,
+   "net": 5,
+   "missed": [],
+   "broken": []
+  },
+  "train (SLM Trainer)": {
+   "fixed": 4,
+   "bugs": 4,
+   "decoys_broken": 0,
+   "net": 4,
+   "missed": [],
+   "broken": []
+  },
+  "llm (AI Engineer)": {
+   "fixed": 5,
+   "bugs": 5,
+   "decoys_broken": 0,
+   "net": 5,
+   "missed": [],
+   "broken": []
+  },
+  "eval (MLOps-Eval)": {
+   "fixed": 5,
+   "bugs": 5,
+   "decoys_broken": 0,
+   "net": 5,
+   "missed": [],
+   "broken": []
+  },
+  "TOTAL": {
+   "fixed": 19,
+   "bugs": 19,
+   "decoys_broken": 0,
+   "net": 19
+  },
+  "files_returned": [
+   "mlkit/data_prep.py",
+   "mlkit/eval_metrics.py",
+   "mlkit/llm_call.py",
+   "mlkit/train_plan.py"
+  ],
+  "errors": {},
+  "seconds": 108
+ },
+ "gemini-3.8-flash-high__r1": {
+  "data (AI Data Engineer)": {
+   "fixed": 5,
+   "bugs": 5,
+   "decoys_broken": 0,
+   "net": 5,
+   "missed": [],
+   "broken": []
+  },
+  "train (SLM Trainer)": {
+   "fixed": 4,
+   "bugs": 4,
+   "decoys_broken": 0,
+   "net": 4,
+   "missed": [],
+   "broken": []
+  },
+  "llm (AI Engineer)": {
+   "fixed": 5,
+   "bugs": 5,
+   "decoys_broken": 0,
+   "net": 5,
+   "missed": [],
+   "broken": []
+  },
+  "eval (MLOps-Eval)": {
+   "fixed": 5,
+   "bugs": 5,
+   "decoys_broken": 0,
+   "net": 5,
+   "missed": [],
+   "broken": []
+  },
+  "TOTAL": {
+   "fixed": 19,
+   "bugs": 19,
+   "decoys_broken": 0,
+   "net": 19
+  },
+  "files_returned": [
+   "mlkit/data_prep.py",
+   "mlkit/eval_metrics.py",
+   "mlkit/llm_call.py",
+   "mlkit/train_plan.py"
+  ],
+  "errors": {},
+  "seconds": 186
+ },
+ "gemini-3.8-flash-high__r2": {
+  "data (AI Data Engineer)": {
+   "fixed": 5,
+   "bugs": 5,
+   "decoys_broken": 0,
+   "net": 5,
+   "missed": [],
+   "broken": []
+  },
+  "train (SLM Trainer)": {
+   "fixed": 4,
+   "bugs": 4,
+   "decoys_broken": 0,
+   "net": 4,
+   "missed": [],
+   "broken": []
+  },
+  "llm (AI Engineer)": {
+   "fixed": 5,
+   "bugs": 5,
+   "decoys_broken": 0,
+   "net": 5,
+   "missed": [],
+   "broken": []
+  },
+  "eval (MLOps-Eval)": {
+   "fixed": 5,
+   "bugs": 5,
+   "decoys_broken": 0,
+   "net": 5,
+   "missed": [],
+   "broken": []
+  },
+  "TOTAL": {
+   "fixed": 19,
+   "bugs": 19,
+   "decoys_broken": 0,
+   "net": 19
+  },
+  "files_returned": [
+   "mlkit/data_prep.py",
+   "mlkit/eval_metrics.py",
+   "mlkit/llm_call.py",
+   "mlkit/train_plan.py"
+  ],
+  "errors": {},
+  "seconds": 194
+ },
+ "gemini-4-argon-high__r1": {
+  "data (AI Data Engineer)": {
+   "fixed": 5,
+   "bugs": 5,
+   "decoys_broken": 0,
+   "net": 5,
+   "missed": [],
+   "broken": []
+  },
+  "train (SLM Trainer)": {
+   "fixed": 4,
+   "bugs": 4,
+   "decoys_broken": 0,
+   "net": 4,
+   "missed": [],
+   "broken": []
+  },
+  "llm (AI Engineer)": {
+   "fixed": 5,
+   "bugs": 5,
+   "decoys_broken": 0,
+   "net": 5,
+   "missed": [],
+   "broken": []
+  },
+  "eval (MLOps-Eval)": {
+   "fixed": 5,
+   "bugs": 5,
+   "decoys_broken": 0,
+   "net": 5,
+   "missed": [],
+   "broken": []
+  },
+  "TOTAL": {
+   "fixed": 19,
+   "bugs": 19,
+   "decoys_broken": 0,
+   "net": 19
+  },
+  "files_returned": [
+   "mlkit/data_prep.py",
+   "mlkit/eval_metrics.py",
+   "mlkit/llm_call.py",
+   "mlkit/train_plan.py"
+  ],
+  "errors": {},
+  "seconds": 387
+ },
+ "gemini-4-argon-high__r2": {
+  "data (AI Data Engineer)": {
+   "fixed": 5,
+   "bugs": 5,
+   "decoys_broken": 0,
+   "net": 5,
+   "missed": [],
+   "broken": []
+  },
+  "train (SLM Trainer)": {
+   "fixed": 4,
+   "bugs": 4,
+   "decoys_broken": 0,
+   "net": 4,
+   "missed": [],
+   "broken": []
+  },
+  "llm (AI Engineer)": {
+   "fixed": 5,
+   "bugs": 5,
+   "decoys_broken": 0,
+   "net": 5,
+   "missed": [],
+   "broken": []
+  },
+  "eval (MLOps-Eval)": {
+   "fixed": 5,
+   "bugs": 5,
+   "decoys_broken": 0,
+   "net": 5,
+   "missed": [],
+   "broken": []
+  },
+  "TOTAL": {
+   "fixed": 19,
+   "bugs": 19,
+   "decoys_broken": 0,
+   "net": 19
+  },
+  "files_returned": [
+   "mlkit/data_prep.py",
+   "mlkit/eval_metrics.py",
+   "mlkit/llm_call.py",
+   "mlkit/train_plan.py"
+  ],
+  "errors": {},
+  "seconds": 307
+ },
+ "gemini-4-carbon-high__r1": {
+  "data (AI Data Engineer)": {
+   "fixed": 5,
+   "bugs": 5,
+   "decoys_broken": 0,
+   "net": 5,
+   "missed": [],
+   "broken": []
+  },
+  "train (SLM Trainer)": {
+   "fixed": 4,
+   "bugs": 4,
+   "decoys_broken": 0,
+   "net": 4,
+   "missed": [],
+   "broken": []
+  },
+  "llm (AI Engineer)": {
+   "fixed": 5,
+   "bugs": 5,
+   "decoys_broken": 0,
+   "net": 5,
+   "missed": [],
+   "broken": []
+  },
+  "eval (MLOps-Eval)": {
+   "fixed": 5,
+   "bugs": 5,
+   "decoys_broken": 0,
+   "net": 5,
+   "missed": [],
+   "broken": []
+  },
+  "TOTAL": {
+   "fixed": 19,
+   "bugs": 19,
+   "decoys_broken": 0,
+   "net": 19
+  },
+  "files_returned": [
+   "mlkit/data_prep.py",
+   "mlkit/eval_metrics.py",
+   "mlkit/llm_call.py",
+   "mlkit/train_plan.py"
+  ],
+  "errors": {},
+  "seconds": 656
+ },
+ "gemini-4-carbon-high__r2": {
+  "data (AI Data Engineer)": {
+   "fixed": 5,
+   "bugs": 5,
+   "decoys_broken": 0,
+   "net": 5,
+   "missed": [],
+   "broken": []
+  },
+  "train (SLM Trainer)": {
+   "fixed": 4,
+   "bugs": 4,
+   "decoys_broken": 0,
+   "net": 4,
+   "missed": [],
+   "broken": []
+  },
+  "llm (AI Engineer)": {
+   "fixed": 5,
+   "bugs": 5,
+   "decoys_broken": 0,
+   "net": 5,
+   "missed": [],
+   "broken": []
+  },
+  "eval (MLOps-Eval)": {
+   "fixed": 5,
+   "bugs": 5,
+   "decoys_broken": 0,
+   "net": 5,
+   "missed": [],
+   "broken": []
+  },
+  "TOTAL": {
+   "fixed": 19,
+   "bugs": 19,
+   "decoys_broken": 0,
+   "net": 19
+  },
+  "files_returned": [
+   "mlkit/data_prep.py",
+   "mlkit/eval_metrics.py",
+   "mlkit/llm_call.py",
+   "mlkit/train_plan.py"
+  ],
+  "errors": {},
+  "seconds": 686
+ }
+}
