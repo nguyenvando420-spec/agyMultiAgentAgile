@@ -166,4 +166,4 @@ Mỗi Subagent chạy trong phiên ngữ cảnh độc lập. Khi gọi `invoke_
 - **Trọng tâm**: <ví dụ: đúng API contract US-07, rò rỉ dữ liệu, VRAM ≤ 5 GB, prompt injection>
 - **Đầu ra**: báo cáo theo persona; dòng cuối là nhãn kết luận.
 ```
-Chế độ: `--mode review-design` (Gate 2) hoặc `--mode review-code` (gói việc, Gate 3).
+Chế độ: `--mode review-design` (Gate 2) hoặc `--mode review-code` (gói việc, Gate 3); trong Sprint có Git ưu tiên kèm `--diff-uncommitted` / `--diff-commit <sha>` / `--diff-base <branch>`, và chọn `--model gpt-6-astra --effort high` (hoặc `gpt-6.1-sol --effort xhigh`) cho Gate 2/3 hoặc gói việc mật mã/FFI/async khó, `--model gpt-6.1-terra` cho gói lớn nhiều crate, `--model gpt-6-luna` cho gói nhỏ.

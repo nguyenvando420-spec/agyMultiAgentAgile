@@ -1,8 +1,8 @@
 {
   "name": "agile-scrum-team",
   "displayName": "Enterprise Agile Scrum & AI/SLM Multi-Agent Team (Production-Ready)",
-  "version": "2.3.0",
-  "description": "Hệ thống 13 Agents chuẩn Enterprise Agile/Scrum (1 Scrum Master điều phối Dual-mode + 12 Subagents chuyên môn + tích hợp thành viên thứ 14 agile-codex qua OpenAI Codex CLI), bao gồm phát triển phần mềm, huấn luyện/lượng tử hóa model AI nhỏ nhẹ (SLM/Edge AI), xử lý dữ liệu AI, RAG/Agentic Workflows và MLOps/AI Evaluation, kết hợp Phản biện Độc lập 3 họ model và 3 Cổng Duyệt Human-in-the-loop.",
+  "version": "2.4.0",
+  "description": "Hệ thống 13 Agents chuẩn Enterprise Agile/Scrum (1 Scrum Master điều phối Dual-mode + 12 Subagents chuyên môn + tích hợp thành viên phản biện độc lập ngoài Antigravity là agile-codex qua OpenAI Codex CLI), hỗ trợ đầy đủ 21 models Antigravity (Claude 5.5, Gemini 4 Carbon/Argon/Hydrogen XHigh, Orchestrator) & dải GPT-6/6.1 Codex, Swarm sharding, Schedule timers, phát triển phần mềm & SLM/Edge AI, kiểm định chéo 3 họ model và 3 Cổng Duyệt Human-in-the-loop.",
   "suggestedPrompts": [
     "Khởi chạy quy trình Agile chuẩn Production cho ý tưởng mới: [Mô tả ý tưởng]",
     "Phát triển và tối ưu hóa một model AI nhỏ nhẹ (SLM/Edge AI) cho bài toán: [Mô tả bài toán]",

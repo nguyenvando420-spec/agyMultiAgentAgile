@@ -62,20 +62,21 @@ flowchart TD
      - **Nhóm AI, Model Nhỏ Nhẹ (SLM) & MLOps (4)**: `agile-ai-data-engineer`, `agile-slm-trainer`, `agile-ai-engineer`, `agile-mlops-eval`.
    - Nếu bất kỳ subagent nào chưa hiển thị sẵn trong phiên hiện tại, đọc file `.agents/plugins/agile-scrum-team/agents/<name>.md` tương ứng và đăng ký nhanh bằng `define_subagent` một lần cho phiên chat.
    - Tùy vào tính chất dự án: nếu dự án thuần phần mềm không có thành phần AI/ML thì chỉ cần kích hoạt 8 vai trò cơ bản; nếu dự án có phát triển tính năng AI, RAG, Agent hoặc huấn luyện/tối ưu **model AI nhỏ nhẹ (SLM/Edge)** thì kích hoạt thêm 4 vai trò AI tương ứng.
-2. **Chiến lược `Workspace` & Giữ Ngữ Cảnh (`send_message`)**:
+2. **Chiến lược `Workspace`, `Swarm`, `Schedule` & Giữ Ngữ Cảnh (`send_message`)**:
    - Dùng `Workspace: "inherit"` cho các vai trò chạy tuần tự (`agile-researcher`, `agile-po-ba`, `agile-tech-lead`, `agile-architect`, `agile-critic`, `agile-qa`, `agile-mlops-eval`, `agile-devops`).
-   - Dùng `Workspace: "share"` (trên Git repo) hoặc phân tách cứng thư mục module khi chạy song song nhiều `agile-developer`, `agile-ai-engineer`, `agile-ai-data-engineer`, `agile-slm-trainer`.
-   - Lưu lại `conversationId` của từng Subagent để dùng `send_message` khi cần sửa theo phản biện của `agile-critic`, báo lỗi từ `agile-qa` / `agile-mlops-eval`, hoặc điều chỉnh theo ý người dùng tại các Gate.
+   - Dùng `Workspace: "share"` (trên Git repo hoặc thư mục thường — giữ nguyên cả file uncommitted/untracked) hoặc chia lát bằng `swarm` `tasks: [...]` khi chạy song song nhiều `agile-developer`, `agile-ai-engineer`, `agile-ai-data-engineer`, `agile-slm-trainer`. Có thể dùng `fork: "<member>"` khi cần tách nhánh kế thừa ngữ cảnh.
+   - Dùng công cụ built-in `schedule` (`DurationSeconds` kèm `TimerCondition: "<senderId>"`) thay cho mọi lệnh `sleep` khi cần canh tiến trình dài.
+   - Lưu lại `conversationId` / tên worker của từng Subagent để dùng `send_message` (hoặc `swarm{action:"model"}` đổi nóng model giữ hội thoại) khi cần sửa theo phản biện của `agile-critic`, báo lỗi từ `agile-qa` / `agile-mlops-eval`, hoặc điều chỉnh theo ý người dùng tại các Gate.
 
 ---
 
 ## 3. Quy Trình Điều Phối Chi Tiết 4 Giai Đoạn
 
-### Chế Độ Đa Model (Mỗi Vai Trò Một Model)
-- **Mặc định bật** (người dùng đã duyệt 11/11/2026): mỗi vai trò chạy trên model trong bảng phân công của [model-routing.md](./references/model-routing.md). Cách chính là **swarm**: mỗi vai trò là một worker ghim model.
-- `invoke_subagent` chỉ chọn được tier (`flash`/`pro`...), không chọn được model cụ thể.
-- Nguyên tắc: Critic khác họ model với tác giả; QA và MLOps-Eval khác họ với Developer / AI Engineer / SLM Trainer.
-- **Hết quota**: tự chuyển sang model dự phòng theo mục 5 của model-routing.md, báo người dùng, ghi nhật ký.
+### Chế Độ Đa Model (Mỗi Vai Trò Một Model — 21 Models Antigravity + Dải GPT-6/6.1 Codex)
+- **Mặc định bật** (người dùng duyệt 11/11/2026 & cập nhật 13/11/2026): mỗi vai trò chạy trên model trong bảng phân công của [model-routing.md](./references/model-routing.md). Cách chính là **swarm**: mỗi vai trò là một worker ghim model (cả 21 model Antigravity: Claude 5.5, Gemini 4 Carbon/Argon/Hydrogen `Low..XHigh`, `gemini-pro-orchestrator`, Gemini 3.8 Flash).
+- `invoke_subagent` chỉ chọn được tier (`flash_lite`/`flash`/`pro`/`inherit`), không chọn được biến thể cụ thể.
+- Nguyên tắc: Critic khác họ model với tác giả; QA và MLOps-Eval khác họ với Developer / AI Engineer / SLM Trainer. Khi giỏ quota Claude về `0%`, bắt buộc tách biến thể Gemini (`hydrogen-*` cho Tác giả ↔ `argon-high` cho QA ↔ `carbon-high` cho Critic/MLOps-Eval) kết hợp đối trọng `agile-codex` (OpenAI `gpt-6.1-sol` / `gpt-6-astra` / `gpt-6.1-terra` / `gpt-6-luna`).
+- **Hết quota**: tự chuyển nóng bằng `swarm{action:"model"}` sang model dự phòng theo mục 5 của `model-routing.md`, báo người dùng, ghi nhật ký.
 - **Đánh giá thực tế**: sau mỗi lần bàn giao, tự kiểm chứng sản phẩm rồi ghi 1 dòng vào `docs/04-sprint-management/model-performance.md` (mục 6 của model-routing.md). Nếu chưa có file, tạo từ [model-performance-template.md](./references/model-performance-template.md).
 
 ### Bước 0: Khôi Phục Trạng Thái (Luôn làm đầu tiên)

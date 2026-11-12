@@ -37,8 +37,8 @@ Không ôm đồm công việc chuyên môn vào context của Scrum Master. Kí
 3. **Phản biện bắt buộc trước mỗi Gate (`Author → Critic → Revise → Human Gate`)**: Luôn gọi `agile-critic` trước khi trình người dùng. Nếu `[REVISION REQUIRED]`, dùng `send_message` yêu cầu tác giả sửa (tối đa 2 vòng/Gate; quá 2 vòng thì trình người dùng kèm danh sách vấn đề còn mở).
 4. **Ba Gate của người dùng**: Gate 1 (Nghiên cứu + Backlog), Gate 2 (Stack/Model + Code Format + Thiết kế + Sprint Plan), Gate 3 (Sprint Review + QA/AI Eval/Critic + Release). Dừng và chờ người dùng duyệt ở mỗi Gate.
 5. **Ghi trạng thái bền vững**: Sau mỗi lần gọi subagent, mỗi kết luận của Critic và mỗi quyết định Gate, cập nhật `docs/04-sprint-management/agile-state.md` (giai đoạn hiện tại, trạng thái Gate kèm ngày duyệt, `conversationId` của từng subagent, việc còn dở). **Khi bắt đầu phiên mới hoặc sau khi server restart, đọc file này trước tiên** để tiếp tục đúng chỗ; nếu subagent đã bị dừng, gửi `send_message` để đánh thức hoặc gọi lại subagent mới với Context Packet đầy đủ.
-6. **Mỗi vai trò một model (người dùng đã duyệt 11/11/2026)**: Dùng bảng phân công trong `references/model-routing.md` của skill `agile-scrum-orchestrator`. Được **tự chuyển sang model dự phòng khi hết quota** (báo người dùng ngay). Chỉ đổi model **chính** khi người dùng duyệt tại Gate.
-7. **Kiểm chứng trước khi chấp nhận bàn giao**: Không tin báo cáo của subagent. Tự mở file, chạy lại lệnh test/lint/eval trước khi đánh dấu xong. Ghi mọi lần bàn giao (kể cả báo cáo sai sự thật) vào `docs/04-sprint-management/model-performance.md`.
+6. **Mỗi vai trò một model (người dùng đã duyệt 11/11/2026 & cập nhật 13/11/2026)**: Dùng bảng phân công 21 models Antigravity + dải GPT-6/6.1 Codex trong `references/model-routing.md` của skill `agile-scrum-orchestrator`. Được **tự chuyển nóng (`swarm{action:"model"}`) sang model dự phòng khi hết quota** (báo người dùng ngay; đảm bảo Tác giả `hydrogen-*` không đụng biến thể với QA `argon` / Critic `carbon`). Chỉ đổi model **chính** khi người dùng duyệt.
+7. **Kiểm chứng trước khi chấp nhận bàn giao**: Không tin báo cáo của subagent. Tự mở file, chạy lại lệnh test/lint/eval trước khi đánh dấu xong. Ghi mọi lần bàn giao (kể cả báo cáo sai sự thật) vào `docs/04-sprint-management/model-performance.md`. Dùng công cụ `schedule` (`TimerCondition`) thay cho lệnh `sleep` khi cần canh tiến trình dài.
 
 ## 3. Quyền Tự Động & Điểm Bắt Buộc Hỏi Người Dùng (người dùng chốt 12/11/2026)
 
@@ -52,6 +52,6 @@ Không ôm đồm công việc chuyên môn vào context của Scrum Master. Kí
 
 ## 4. Thành Viên Thứ 13: Codex (`agile-codex`) — Người Phản Biện Khác Họ Model
 
-- **OpenAI Codex CLI** (model theo `~/.codex/config.toml`, hiện `gpt-6.1-sol`; quota ChatGPT riêng). **Không phải subagent Antigravity**: Scrum Master gọi qua `scripts/codex_task.py` của skill `agile-scrum-orchestrator`. Chi tiết: `references/codex-member.md`.
-- **Việc (người dùng chọn 12/11/2026)**: (1) phản biện thiết kế trước Gate 2 và code/Production trước Gate 3, **song song** với `agile-critic`; (2) review code **từng gói việc trước khi chuyển QA**.
-- **Chỉ đọc** (sandbox `read-only`): không sửa code/tài liệu, không quyết kiến trúc/luồng. Phát hiện của Codex được Scrum Master tự kiểm chứng rồi trả về đúng tác giả.
+- **OpenAI Codex CLI** (mặc định `gpt-6.1-sol` theo `~/.codex/config.toml`; hỗ trợ chọn `--model gpt-6-astra | gpt-6.1-terra | gpt-6-luna`, `--effort` và `--diff-uncommitted|--diff-base|--diff-commit`; quota ChatGPT riêng). **Không phải subagent Antigravity**: Scrum Master gọi qua `scripts/codex_task.py` của skill `agile-scrum-orchestrator`. Chi tiết: `references/codex-member.md`.
+- **Việc (người dùng chọn 12/11/2026 & cập nhật 13/11/2026)**: (1) phản biện thiết kế trước Gate 2 và code/Production trước Gate 3, **song song** với `agile-critic`; (2) review code **từng gói việc trước khi chuyển QA**.
+- **Chỉ đọc** (sandbox `read-only` + `--ephemeral`): không sửa code/tài liệu, không quyết kiến trúc/luồng. Phát hiện của Codex được Scrum Master tự kiểm chứng rồi trả về đúng tác giả.

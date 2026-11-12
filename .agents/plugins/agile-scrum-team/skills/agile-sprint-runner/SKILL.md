@@ -40,8 +40,9 @@ Dựa trên `docs/04-sprint-management/sprint-backlog.md`, điều phối các l
 ## Bước 2.5: Codex Review Từng Gói Việc Trước Khi Chuyển QA (`agile-codex`, chỉ đọc)
 
 1. Với mỗi gói việc vừa bàn giao (sau khi Scrum Master đã tự chạy lại Format + Lint + Test), viết Context Packet theo `handoff-prompts.md` mục 10 rồi chạy:
-   `python .agents/plugins/agile-scrum-team/skills/agile-scrum-orchestrator/scripts/codex_task.py --mode review-code --packet <packet> --cd . --out docs/05-quality-assurance/codex-reviews/<WP-id>.md`
-   Có thể chạy song song cho nhiều gói việc (Codex dùng quota riêng).
+   `python .agents/plugins/agile-scrum-team/skills/agile-scrum-orchestrator/scripts/codex_task.py --mode review-code --packet <packet> --cd . --diff-uncommitted --out docs/05-quality-assurance/codex-reviews/<WP-id>.md`
+   (Hoặc dùng `--diff-commit <sha>` / `--diff-base <branch>`; có thể chọn `--model gpt-6-astra --effort high` cho gói việc mật mã/FFI/async khó, `--model gpt-6.1-terra` cho gói lớn nhiều crate, hoặc `--model gpt-6-luna` cho gói nhỏ.)
+   Có thể chạy song song cho nhiều gói việc (Codex dùng quota ChatGPT riêng và bật sẵn `--ephemeral`).
 2. `[CHANGES REQUESTED]` → Scrum Master **tự kiểm chứng** từng phát hiện, rồi `send_message` các lỗi đúng về tác giả (tối đa 2 vòng/gói việc); phát hiện sai ghi vào `model-performance.md` (vai trò `agile-codex`).
 3. Phát hiện thuộc **kiến trúc/luồng** → không giao sửa ngay; trình người dùng (`ask_question`).
 4. `[PASS]` (hoặc đã xử lý xong) → chuyển sang Bước 3.

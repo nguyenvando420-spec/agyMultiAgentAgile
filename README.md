@@ -46,26 +46,33 @@ Plugin + bộ khung biến **Google Antigravity** (`agy` CLI / IDE / App) thành
 
 ---
 
-## 3. Mỗi vai trò một model (Kiểm định chéo 3 họ Model)
+## 3. Mỗi vai trò một model (Kiểm định chéo 3 họ Model — 21 Models Antigravity + Dải GPT-6/6.1 Codex)
 
-Phân công dựa trên khảo sát thực nghiệm ([benchmark/](benchmark/README.md), [benchmark-ai/](benchmark-ai/README.md), [benchmark-ai-v2/](benchmark-ai-v2/prompt.md)), chi tiết trong [model-routing.md](.agents/plugins/agile-scrum-team/skills/agile-scrum-orchestrator/references/model-routing.md):
+Phân công dựa trên khảo sát thực nghiệm ([benchmark/](benchmark/README.md), [benchmark-ai/](benchmark-ai/README.md), [benchmark-ai-v2/](benchmark-ai-v2/prompt.md) & phép thử `Gemini 4 Hydrogen` / `Orchestrator` ngày 13/11/2026), chi tiết trong [model-routing.md](.agents/plugins/agile-scrum-team/skills/agile-scrum-orchestrator/references/model-routing.md):
 
-| Nhóm / Vai trò | Model chính | Dự phòng |
+| Nhóm / Vai trò | Model chính | Dự phòng / Lựa chọn chuyên biệt |
 |---|---|---|
-| `agile-scrum-master`, `agile-researcher`, `agile-architect`, `agile-slm-trainer` | `claude-opus-5-5-high` | `claude-sonnet-5-5-high` / `gemini-4-argon-high` |
-| `agile-po-ba`, `agile-tech-lead`, `agile-developer`, `agile-ai-data-engineer`, `agile-ai-engineer` | `claude-sonnet-5-5-high` | `gemini-4-argon-high` / `gemini-4-carbon-high` |
-| `agile-critic`, `agile-mlops-eval` *(Kiểm định độc lập khác họ với tác giả Claude)* | `gemini-4-carbon-high` | `gemini-4-argon-high` |
-| `agile-qa` *(Kiểm thử phần mềm độc lập khác họ với Developer)* | `gemini-4-argon-high` | `gemini-4-carbon-high` |
-| `agile-devops`, `agile-developer` (story đơn giản) | `gemini-3.8-flash-high` | `gemini-4-argon-high` / `claude-sonnet-5-5-medium` |
-| `agile-codex` *(Phản biện độc lập họ model thứ 3 — OpenAI)* | `gpt-6.1-sol` (Codex CLI) | — |
+| `agile-scrum-master` | `claude-opus-5-5-high` *(hoặc theo UI)* | **`gemini-pro-orchestrator`** → `gemini-4-carbon-high` |
+| `agile-researcher`, `agile-architect`, `agile-slm-trainer` | `claude-opus-5-5-high` | `claude-sonnet-5-5-high` → **`gemini-4-hydrogen-xhigh`** → `gemini-4-argon-high` |
+| `agile-po-ba`, `agile-tech-lead`, `agile-developer` *(module lõi)*, `agile-ai-data-engineer`, `agile-ai-engineer` | `claude-sonnet-5-5-high` | **`gemini-4-hydrogen-xhigh`** / **`gemini-4-hydrogen-high`** → `gemini-4-argon-high` / `gemini-4-carbon-high` |
+| `agile-devops`, `agile-developer` *(story đơn giản)* | **`gemini-4-hydrogen-high`** | `gemini-3.8-flash-high` → `gemini-4-argon-high` / `gemini-4-hydrogen-medium` |
+| `agile-critic`, `agile-mlops-eval` *(Kiểm định độc lập khác họ với tác giả Claude)* | `gemini-4-carbon-high` | **`gemini-4-hydrogen-xhigh`** → `gemini-4-argon-high` |
+| `agile-qa` *(Kiểm thử phần mềm độc lập khác họ/biến thể với Developer)* | `gemini-4-argon-high` | `gemini-4-carbon-high` → **`gemini-4-hydrogen-xhigh`** *(khi Dev không dùng `hydrogen`)* |
+| `agile-codex` *(Phản biện độc lập họ model thứ 3 — OpenAI)* | `gpt-6.1-sol` (`effort: high`) | **`gpt-6-astra`** / `xhigh` *(Gate 2/3, Crypto/FFI khó)* · **`gpt-6.1-terra`** *(WP lớn 500K ctx)* · **`gpt-6-luna`** *(WP nhỏ)* |
+| *Tác vụ phụ trợ nhanh (Smoke check CLI, tiền kiểm định dạng, tóm tắt log)* | **`gemini-4-hydrogen-low`** | `gemini-3.8-flash-low` |
 
 ---
 
 ## 4. Cài đặt
 
-### Dự án mới
+### Cài đặt / Cập nhật Plugin toàn cục cho Antigravity CLI (`v2.4.0`)
 ```bash
 git clone git@github.com:nguyenvando420-spec/agyMultiAgentAgile.git
+agy plugin install ./agyMultiAgentAgile/.agents/plugins/agile-scrum-team
+```
+
+### Dự án mới
+```bash
 ./agyMultiAgentAgile/scripts/init-agile-project.sh ../ten-du-an-moi
 ```
 
@@ -86,7 +93,7 @@ agy plugin validate .agents/plugins/agile-scrum-team --strict
 .agents/
 ├── rules/decision-gates.md         # Quy tắc bắt buộc hỏi người dùng khi đổi Kiến trúc / Luồng
 └── plugins/agile-scrum-team/
-    ├── plugin.json                 # Manifest v2.3.0 (13 agents + 2 skills + 1 rule)
+    ├── plugin.json                 # Manifest v2.4.0 (13 agents + 2 skills + 1 rule)
     ├── rules/AGENTS.md             # Quy tắc điều phối toàn đội
     ├── agents/                     # 13 persona agile-* (agile-scrum-master + 12 subagents chuyên trách)
     └── skills/
